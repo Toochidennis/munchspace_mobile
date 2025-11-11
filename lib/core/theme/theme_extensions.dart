@@ -72,6 +72,9 @@ extension ThemeExtension on BuildContext {
   /// Get on accent (text on accent background)
   Color get onAccent => AppColors.white;
 
+  /// Get pink color
+  Color get pink => AppColors.pink;
+
   // ============================================================================
   // State Colors
   // ============================================================================

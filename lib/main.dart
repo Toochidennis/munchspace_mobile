@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/constants.dart';
 import 'core/theme/app_theme.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,19 +30,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const _HomePage(),
-    );
-  }
-}
-
-class _HomePage extends StatelessWidget {
-  const _HomePage();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('MunchSpace')),
-      body: const Center(child: Text('Welcome to MunchSpace')),
+      child: const LoginScreen(),
     );
   }
 }

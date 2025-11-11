@@ -43,6 +43,10 @@ class AppColors {
   /// Used for errors, warnings, destructive actions
   static const Color red = Color(0xFFC43A3A);
 
+  /// Pink Accent
+  /// Used for special highlights, decorative elements
+  static const Color pink = Color(0xFFFBE8D9);
+
   // ============================================================================
   // Basic Colors
   // ============================================================================

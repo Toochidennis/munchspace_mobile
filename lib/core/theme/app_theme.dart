@@ -324,7 +324,7 @@ class AppTheme {
   static ElevatedButtonThemeData get _lightElevatedButtonTheme =>
       ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.green,
+          backgroundColor: AppColors.orange,
           foregroundColor: AppColors.white,
           disabledBackgroundColor: AppColors.disabledContainer,
           disabledForegroundColor: AppColors.disabled,
@@ -333,6 +333,8 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
+          fixedSize: const Size.fromHeight(52),
+          minimumSize: const Size.fromHeight(52),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: _baseTextTheme.labelLarge?.copyWith(
             fontWeight: FontWeight.w600,
