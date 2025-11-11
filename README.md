@@ -142,10 +142,6 @@ Feature
 ### Available Platforms
 - ✅ Android (primary target)
 - ✅ iOS (supported)
-- ⚠️ Web (in progress)
-- ⚠️ Windows (in progress)
-- ⚠️ Linux (in progress)
-- ⚠️ macOS (in progress)
 
 ---
 
