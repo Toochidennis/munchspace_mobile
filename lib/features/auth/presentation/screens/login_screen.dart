@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../widgets/auth_appbar.dart';
 import '../widgets/auth_tab_bar.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/phone_number_field.dart';
+import 'confirm_account_screen.dart';
 
 /// Login screen for user authentication
 class LoginScreen extends StatefulWidget {
@@ -104,7 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // TODO: Implement login logic with Riverpod
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
               },
               child: Text(
                 'Log in',
@@ -192,7 +196,17 @@ class _LoginScreenState extends State<LoginScreen> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // TODO: Implement sign up logic
+                // Get email from controller
+                final email = _emailController.text.isNotEmpty
+                    ? _emailController.text
+                    : 'your email address';
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ConfirmAccountScreen(email: email),
+                  ),
+                );
               },
               child: Text(
                 'Sign up',

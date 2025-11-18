@@ -43,11 +43,11 @@ class _AuthAppBarContent extends StatelessWidget {
           ),
           // Content on top
           Container(
-            color: AppColors.pink,
+            color: AppColors.red100,
             child: SafeArea(
               child: Container(
                 height: 56.h,
-                color: AppColors.pink,
+                color: AppColors.red100,
                 padding: 20.padH,
                 child: Row(
                   children: [
@@ -79,7 +79,8 @@ class _AuthAppBarContent extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     Spacer(),
-                    SizedBox(width: ResponsiveDimensions.buttonMD),
+                    if (showBackButton)
+                      SizedBox(width: ResponsiveDimensions.buttonMD),
                   ],
                 ),
               ),
