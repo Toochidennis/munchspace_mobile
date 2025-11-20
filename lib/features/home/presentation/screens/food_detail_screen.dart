@@ -58,6 +58,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
+        key: const PageStorageKey('food_detail_scroll'),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -238,64 +239,78 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                 ],
               ),
             ),
-            // Quantity section
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Quantity',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                  12.sH,
-                  SimpleQuantityStepper(
-                    quantity: _quantity,
-                    onDecrement: () => setState(() => _quantity--),
-                    onIncrement: () => setState(() => _quantity++),
-                  ),
-                  24.sH,
-                ],
-              ),
-            ),
           ],
         ),
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(16.w),
-        child: GestureDetector(
-          onTap: () {
-            // Handle add to cart
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Added ${_quantity}x ${widget.food.name} to cart',
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadow.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Quantity Row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Quantity',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
-                duration: const Duration(seconds: 2),
-              ),
-            );
-          },
-          child: Container(
-            height: 48.h,
-            decoration: BoxDecoration(
-              color: AppColors.orange,
-              borderRadius: BorderRadius.circular(12.r),
+                QuantityStepper(
+                  quantity: _quantity,
+                  onDecrement: () {
+                    if (_quantity > 1) setState(() => _quantity--);
+                  },
+                  onIncrement: () => setState(() => _quantity++),
+                ),
+              ],
             ),
-            child: Center(
-              child: Text(
-                'Add to cart · ${_getTotalPrice().toCurrency()}',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ).withCurrencyFont,
+            16.sH,
+            // Add to Cart Button
+            GestureDetector(
+              onTap: () {
+                // Handle add to cart
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Added ${_quantity}x ${widget.food.name} to cart',
+                    ),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: Container(
+                height: 48.h,
+                decoration: BoxDecoration(
+                  color: AppColors.orange,
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Center(
+                  child: Text(
+                    'Add to cart · ${_getTotalPrice().toCurrency()}',
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ).withCurrencyFont,
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

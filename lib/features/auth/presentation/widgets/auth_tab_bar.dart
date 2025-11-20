@@ -43,7 +43,7 @@ class AuthTabBar extends StatelessWidget {
                 child: Center(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 16.h,
+                      vertical: 12.h,
                       horizontal: 20.w,
                     ),
                     child: Text(
@@ -85,7 +85,7 @@ class AuthTabBar extends StatelessWidget {
                 child: Center(
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: 16.h,
+                      vertical: 12.h,
                       horizontal: 20.w,
                     ),
                     child: Text(

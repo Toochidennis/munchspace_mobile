@@ -47,24 +47,27 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           48.sH,
           // Custom Tab Bar
-          AuthTabBar(
-            currentTabIndex: _currentTabIndex,
-            onLoginTap: () {
-              setState(() => _currentTabIndex = 0);
-              _pageController.animateToPage(
-                0,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
-            onSignUpTap: () {
-              setState(() => _currentTabIndex = 1);
-              _pageController.animateToPage(
-                1,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
+          Padding(
+            padding: 20.padH,
+            child: AuthTabBar(
+              currentTabIndex: _currentTabIndex,
+              onLoginTap: () {
+                setState(() => _currentTabIndex = 0);
+                _pageController.animateToPage(
+                  0,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              onSignUpTap: () {
+                setState(() => _currentTabIndex = 1);
+                _pageController.animateToPage(
+                  1,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
           ),
           // Page View
           Expanded(
@@ -83,6 +86,101 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 32.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadow.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Action Button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_currentTabIndex == 0) {
+                    // Log in action
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  } else {
+                    // Sign up action
+                    // Get email from controller
+                    final email = _emailController.text.isNotEmpty
+                        ? _emailController.text
+                        : 'your email address';
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ConfirmAccountScreen(email: email),
+                      ),
+                    );
+                  }
+                },
+                child: Text(
+                  _currentTabIndex == 0 ? 'Log in' : 'Sign up',
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            20.sH,
+            // Terms text
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        'By Continuing, it means you have read and accept our\n',
+                    style: TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Terms of Services',
+                    style: TextStyle(
+                      color: AppColors.orange,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' and ',
+                    style: TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Privacy Policy',
+                    style: TextStyle(
+                      color: AppColors.orange,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -99,62 +197,6 @@ class _LoginScreenState extends State<LoginScreen> {
             hintText: 'Enter your email or phone number',
             keyboardType: TextInputType.emailAddress,
             controller: _emailController,
-          ),
-          32.sH,
-          // Log in button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
-              },
-              child: Text(
-                'Log in',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          20.sH,
-          // Terms text
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text:
-                      'By Continuing, it means you have read and accept our\n',
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12.sp,
-                  ),
-                ),
-                TextSpan(
-                  text: 'Terms of Services',
-                  style: TextStyle(
-                    color: AppColors.orange,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                TextSpan(
-                  text: ' and ',
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12.sp,
-                  ),
-                ),
-                TextSpan(
-                  text: 'Privacy Policy',
-                  style: TextStyle(
-                    color: AppColors.orange,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),
@@ -189,70 +231,6 @@ class _LoginScreenState extends State<LoginScreen> {
             label: 'Phone Number',
             hintText: '080 ••• •••',
             controller: _phoneController,
-          ),
-          32.sH,
-          // Sign up button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                // Get email from controller
-                final email = _emailController.text.isNotEmpty
-                    ? _emailController.text
-                    : 'your email address';
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ConfirmAccountScreen(email: email),
-                  ),
-                );
-              },
-              child: Text(
-                'Sign up',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-          20.sH,
-          // Terms text
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text:
-                      'By Continuing, it means you have read and accept our\n',
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12.sp,
-                  ),
-                ),
-                TextSpan(
-                  text: 'Terms of Services',
-                  style: TextStyle(
-                    color: AppColors.orange,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                TextSpan(
-                  text: ' and ',
-                  style: TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 12.sp,
-                  ),
-                ),
-                TextSpan(
-                  text: 'Privacy Policy',
-                  style: TextStyle(
-                    color: AppColors.orange,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

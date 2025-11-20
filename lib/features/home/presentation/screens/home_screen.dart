@@ -86,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
             onBackPressed: () => setState(() => _selectedBottomIndex = 0),
           ),
           // Profile tab
-          const ProfileScreen(),
+          ProfileScreen(
+            onBackPressed: () => setState(() => _selectedBottomIndex = 0),
+          ),
         ],
       ),
       bottomNavigationBar: _buildBottomNavBar(),
