@@ -4,10 +4,14 @@ import 'package:munchspace/core/utils/number_extensions.dart';
 import 'package:munchspace/features/home/models/restaurant.dart';
 import 'package:munchspace/features/home/presentation/screens/nearby_munchspaces_screen.dart';
 import 'package:munchspace/features/home/presentation/screens/restaurant_detail_screen.dart';
+import 'package:munchspace/features/home/presentation/screens/search_screen.dart';
 import 'package:munchspace/features/home/presentation/widgets/category.dart';
+import 'package:munchspace/features/orders/presentation/screens/orders_screen.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../address/presentation/screens/add_address_screen.dart';
+import '../../../notification/presentation/screens/notification_screen.dart';
 import '../../models/food_tile.dart';
 
 /// Home screen for food delivery app
@@ -24,49 +28,65 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Header with location, delivery fee, and time
-              _buildHeader(),
-              20.sH,
-              // Categories
-              _buildCategories(),
-              20.sH,
-              // "Explore nearby MunchSpaces" section
-              _buildSectionHeader(
-                'Explore nearby MunchSpaces',
-                page: const NearbyMunchspacesScreen(),
+      body: IndexedStack(
+        index: _selectedBottomIndex,
+        children: [
+          // Home tab
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // Header with location, delivery fee, and time
+                  _buildHeader(),
+                  20.sH,
+                  // Categories
+                  _buildCategories(),
+                  20.sH,
+                  // "Explore nearby MunchSpaces" section
+                  _buildSectionHeader(
+                    'Explore nearby MunchSpaces',
+                    page: const NearbyMunchspacesScreen(),
+                  ),
+                  12.sH,
+                  _buildExploreMunchSpaces(),
+                  20.sH,
+                  // "Handpicked for you" section
+                  _buildSectionHeader(
+                    'Handpicked for you',
+                    page: const NearbyMunchspacesScreen(),
+                  ),
+                  12.sH,
+                  _buildFeaturedFoods(),
+                  20.sH,
+                  _buildSectionHeader(
+                    'Sweet Sensation - Ogba',
+                    page: const NearbyMunchspacesScreen(),
+                  ),
+                  12.sH,
+                  _buildSweetSensation(),
+                  20.sH,
+                  _buildSectionHeader(
+                    'Oven Pick-up - Abule egba',
+                    page: const NearbyMunchspacesScreen(),
+                  ),
+                  12.sH,
+                  _buildOvenPickup(),
+                  20.sH,
+                ],
               ),
-              12.sH,
-              _buildExploreMunchSpaces(),
-              20.sH,
-              // "Handpicked for you" section
-              _buildSectionHeader(
-                'Handpicked for you',
-                page: const NearbyMunchspacesScreen(),
-              ),
-              12.sH,
-              _buildFeaturedFoods(),
-              20.sH,
-              _buildSectionHeader(
-                'Sweet Sensation - Ogba',
-                page: const NearbyMunchspacesScreen(),
-              ),
-              12.sH,
-              _buildSweetSensation(),
-              20.sH,
-              _buildSectionHeader(
-                'Oven Pick-up - Abule egba',
-                page: const NearbyMunchspacesScreen(),
-              ),
-              12.sH,
-              _buildOvenPickup(),
-              20.sH,
-            ],
+            ),
           ),
-        ),
+          // Search tab
+          SearchScreen(
+            onBackPressed: () => setState(() => _selectedBottomIndex = 0),
+          ),
+          // Orders tab
+          OrdersScreen(
+            onBackPressed: () => setState(() => _selectedBottomIndex = 0),
+          ),
+          // Profile tab (placeholder)
+          Center(child: Text('Profile')),
+        ],
       ),
       bottomNavigationBar: _buildBottomNavBar(),
     );
@@ -100,71 +120,94 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               // Location dropdown
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/svg/home/location.svg',
-                    width: 16.w,
-                    height: 16.h,
-                  ),
-                  6.sW,
-                  Text(
-                    'Ifako-Ijaye,...',
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.textPrimary,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddAddressScreen(),
                     ),
+                  );
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/svg/home/location.svg',
+                        width: 16.w,
+                        height: 16.h,
+                      ),
+                      6.sW,
+                      Text(
+                        'Ifako-Ijaye,...',
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      4.sW,
+                      Icon(
+                        Icons.expand_more,
+                        size: 18.sp,
+                        color: AppColors.textSecondary,
+                      ),
+                    ],
                   ),
-                  4.sW,
-                  Icon(
-                    Icons.expand_more,
-                    size: 18.sp,
-                    color: AppColors.textSecondary,
-                  ),
-                ],
+                ),
               ),
               // Notification badge
-              Stack(
-                children: [
-                  Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.red100,
-                      shape: BoxShape.circle,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationScreen(),
                     ),
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/svg/home/notification.svg',
-                        width: 20.w,
-                        height: 20.h,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 4.h,
-                    right: 4.w,
-                    child: Container(
-                      width: 16.w,
-                      height: 16.h,
-                      decoration: const BoxDecoration(
-                        color: AppColors.red,
+                  );
+                },
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 40.w,
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.red100,
                         shape: BoxShape.circle,
                       ),
                       child: Center(
-                        child: Text(
-                          '3',
-                          style: TextStyle(
-                            fontSize: 9.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
+                        child: SvgPicture.asset(
+                          'assets/svg/home/notification.svg',
+                          width: 20.w,
+                          height: 20.h,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 4.h,
+                      right: 4.w,
+                      child: Container(
+                        width: 16.w,
+                        height: 16.h,
+                        decoration: const BoxDecoration(
+                          color: AppColors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '3',
+                            style: TextStyle(
+                              fontSize: 9.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -249,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        separatorBuilder: (_, __) => 12.sW,
+        separatorBuilder: (_, _) => 12.sW,
         itemBuilder: (context, index) {
           return categories[index];
         },
@@ -322,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         scrollDirection: Axis.horizontal,
         itemCount: restaurants.length,
-        separatorBuilder: (_, __) => 16.sW,
+        separatorBuilder: (_, _) => 16.sW,
         itemBuilder: (context, index) {
           return _buildRestaurantCard(restaurants[index]);
         },
@@ -390,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         scrollDirection: Axis.horizontal,
         itemCount: foods.length,
-        separatorBuilder: (_, __) => 20.sW,
+        separatorBuilder: (_, _) => 20.sW,
         itemBuilder: (context, index) {
           return _buildFoodCard(foods[index], width: 190);
         },
@@ -422,7 +465,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         scrollDirection: Axis.horizontal,
         itemCount: foods.length,
-        separatorBuilder: (_, __) => 20.sW,
+        separatorBuilder: (_, _) => 20.sW,
         itemBuilder: (context, index) {
           return _buildFoodCard(foods[index], width: 190);
         },
@@ -458,7 +501,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         scrollDirection: Axis.horizontal,
         itemCount: foods.length,
-        separatorBuilder: (_, __) => 20.sW,
+        separatorBuilder: (_, _) => 20.sW,
         itemBuilder: (context, index) {
           return _buildFoodCard(foods[index]);
         },

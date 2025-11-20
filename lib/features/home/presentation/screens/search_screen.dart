@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:munchspace/core/common_widgets/custom_appbar.dart';
 import 'package:munchspace/core/utils/responsive.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final VoidCallback? onBackPressed;
+
+  const SearchScreen({super.key, this.onBackPressed});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -48,47 +51,9 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surfaceContainer,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.h),
-        child: SafeArea(
-          child: Container(
-            height: 72.h,
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.red100,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.textPrimary,
-                      size: 20.sp,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    'Search',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 40.w),
-              ],
-            ),
-          ),
-        ),
+      appBar: CustomAppbar(
+        title: 'Search',
+        onBackPressed: widget.onBackPressed,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -142,7 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: _tabs.length,
-                  separatorBuilder: (_, __) => 8.sW,
+                  separatorBuilder: (_, _) => 8.sW,
                   itemBuilder: (context, index) {
                     final tab = _tabs[index];
                     final isSelected = _selectedTab == tab;
@@ -283,8 +248,8 @@ class _SearchScreenState extends State<SearchScreen> {
     return Row(
       children: [
         Container(
-          width: 36.w,
-          height: 36.h,
+          width: 36.sp,
+          height: 36.sp,
           decoration: BoxDecoration(
             color: AppColors.disabledContainer,
             shape: BoxShape.circle,

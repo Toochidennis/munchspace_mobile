@@ -1,0 +1,72 @@
+{
+  "version": "2.0.0",
+  "lastUpdated": "2025-11-19",
+  "description": "Complete Nigerian locations database organized by geopolitical zones",
+  "totalStates": 37,
+  "totalRegions": 6,
+  "regions": [
+    {
+      "name": "South West",
+      "file": "regions/south_west.json",
+      "states": ["Lagos", "Ogun", "Oyo", "Osun", "Ondo", "Ekiti"]
+    },
+    {
+      "name": "South South",
+      "file": "regions/south_south.json",
+      "states": [
+        "Rivers",
+        "Delta",
+        "Edo",
+        "Bayelsa",
+        "Akwa Ibom",
+        "Cross River"
+      ]
+    },
+    {
+      "name": "South East",
+      "file": "regions/south_east.json",
+      "states": ["Anambra", "Enugu", "Imo", "Abia", "Ebonyi"]
+    },
+    {
+      "name": "North Central",
+      "file": "regions/north_central.json",
+      "states": [
+        "FCT",
+        "Plateau",
+        "Kwara",
+        "Kogi",
+        "Benue",
+        "Niger",
+        "Nasarawa"
+      ]
+    },
+    {
+      "name": "North West",
+      "file": "regions/north_west.json",
+      "states": [
+        "Kano",
+        "Kaduna",
+        "Katsina",
+        "Jigawa",
+        "Sokoto",
+        "Kebbi",
+        "Zamfara"
+      ]
+    },
+    {
+      "name": "North East",
+      "file": "regions/north_east.json",
+      "states": ["Bauchi", "Borno", "Gombe", "Yobe", "Adamawa", "Taraba"]
+    }
+  ],
+  "usage": {
+    "description": "Load regions individually to reduce memory footprint",
+    "example": "Load only south_west.json for Lagos, Ogun, Oyo, etc.",
+    "benefits": [
+      "Smaller file sizes (each region ~10-15KB)",
+      "Faster parsing",
+      "Load only needed regions",
+      "Easier to maintain and update"
+    ]
+  }
+}

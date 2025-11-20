@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
+import 'package:munchspace/core/common_widgets/custom_appbar.dart';
 import 'package:munchspace/core/utils/number_extensions.dart';
 import 'package:munchspace/core/utils/responsive.dart';
 import 'package:munchspace/features/home/models/addon.dart';
@@ -84,69 +85,28 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
     ];
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.h),
-        child: SafeArea(
+      appBar: CustomAppbar(
+        title: widget.restaurant.name,
+        rightAction: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SearchScreen(),
+              ),
+            );
+          },
           child: Container(
-            height: 72.h,
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Back button
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.red100,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.textPrimary,
-                      size: 20.sp,
-                    ),
-                  ),
-                ),
-                // Title
-                Expanded(
-                  child: Text(
-                    widget.restaurant.name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
-                    ),
-                  ),
-                ),
-                // Search button
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SearchScreen(),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.red100,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      IconlyLight.search,
-                      color: AppColors.black,
-                      size: 20.sp,
-                    ),
-                  ),
-                ),
-              ],
+            width: 40.w,
+            height: 40.h,
+            decoration: BoxDecoration(
+              color: AppColors.red100,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              IconlyLight.search,
+              color: AppColors.black,
+              size: 20.sp,
             ),
           ),
         ),
@@ -223,7 +183,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: _categories.length,
-                separatorBuilder: (_, __) => 8.sW,
+                separatorBuilder: (_, _) => 8.sW,
                 padding: 16.padH,
                 itemBuilder: (context, index) {
                   final category = _categories[index];

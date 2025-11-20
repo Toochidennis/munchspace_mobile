@@ -44,6 +44,7 @@ class AppColors {
   static const Color red = Color(0xFFC43A3A);
   static const Color red50 = Color(0xFFFDF5EF);
   static const Color red100 = Color(0xFFFBE8D9);
+  static const Color red200 = Color(0xFFF7CDB1);
 
   // ============================================================================
   // Basic Colors
