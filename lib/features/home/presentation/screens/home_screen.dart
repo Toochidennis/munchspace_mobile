@@ -7,6 +7,7 @@ import 'package:munchspace/features/home/presentation/screens/restaurant_detail_
 import 'package:munchspace/features/home/presentation/screens/search_screen.dart';
 import 'package:munchspace/features/home/presentation/widgets/category.dart';
 import 'package:munchspace/features/orders/presentation/screens/orders_screen.dart';
+import 'package:munchspace/features/profile/presentation/screens/profile_screen.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -84,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
           OrdersScreen(
             onBackPressed: () => setState(() => _selectedBottomIndex = 0),
           ),
-          // Profile tab (placeholder)
-          Center(child: Text('Profile')),
+          // Profile tab
+          const ProfileScreen(),
         ],
       ),
       bottomNavigationBar: _buildBottomNavBar(),
@@ -713,7 +714,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 18.sp,
               height: 18.sp,
               colorFilter: ColorFilter.mode(
-                _selectedBottomIndex == 4
+                _selectedBottomIndex == 3
                     ? AppColors.orange
                     : AppColors.textSecondary,
                 BlendMode.srcIn,
