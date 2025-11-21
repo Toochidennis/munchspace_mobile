@@ -6,7 +6,7 @@ class AppConstants {
   // App Information
   // ============================================================================
 
-  static const String appName = 'MunchSpace';
+  static const String appName = 'Munchspace';
   static const String appVersion = '1.0.0';
   static const String appBuild = '1';
 

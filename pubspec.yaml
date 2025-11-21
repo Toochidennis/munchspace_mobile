@@ -43,6 +43,26 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^2.0.1
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/logo_with_background.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: "#E76A39"
+  adaptive_icon_foreground: "assets/images/logo_adaptive.png"
+
+flutter_native_splash:
+  color: "#FAFAFA"
+  image: "assets/images/splash.png"
+  android_gravity: center
+  ios_content_mode: center
+  android_12:
+    image: "assets/images/splash.png"
+    icon_background_color: "#FAFAFA"
 
 flutter:
   uses-material-design: true

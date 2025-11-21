@@ -49,5 +49,7 @@
 		<string>This app needs your location to show it on the map</string>
 		<key>com.google.ios.API_KEY</key>
 		<string>AIzaSyDtDYJdvRlu9XAPTGeA4bEjqH0C03-AzsA</string>
+		<key>UIStatusBarHidden</key>
+		<false/>
 	</dict>
 </plist>
