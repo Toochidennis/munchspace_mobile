@@ -176,10 +176,7 @@ class _AddAddressManuallyScreenState extends State<AddAddressManuallyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: CustomAppbar(
-        title: 'Add your address',
-        backIcon: Icons.close,
-      ),
+      appBar: CustomAppbar(title: 'Add your address', backIcon: Icons.close),
       body: Column(
         children: [
           // Search bar section
@@ -239,8 +236,17 @@ class _AddAddressManuallyScreenState extends State<AddAddressManuallyScreen> {
 
           // Use current location option
           InkWell(
-            onTap: () {
-              // TODO: Implement current location functionality
+            onTap: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MapAddressScreen(),
+                ),
+              );
+              if (result != null) {
+                if (!context.mounted) return;
+                Navigator.pop(context, result);
+              }
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
@@ -360,7 +366,11 @@ class _AddAddressManuallyScreenState extends State<AddAddressManuallyScreen> {
                           ),
                         ),
                         onTap: () {
-                          // TODO: Handle address selection
+                          Navigator.pop(context, {
+                            'address': result.fullAddress,
+                            'latitude': 6.5244, // Mock lat
+                            'longitude': 3.3792, // Mock long
+                          });
                         },
                       );
                     },

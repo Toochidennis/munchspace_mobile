@@ -4,6 +4,8 @@ import 'package:munchspace/core/utils/responsive.dart';
 import 'package:munchspace/features/home/models/addon.dart';
 import 'package:munchspace/features/home/models/food.dart';
 import 'package:munchspace/features/home/presentation/widgets/food_detail_widgets.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../../core/theme/app_colors.dart';
 
@@ -283,12 +285,10 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
             GestureDetector(
               onTap: () {
                 // Handle add to cart
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Added ${_quantity}x ${widget.food.name} to cart',
-                    ),
-                    duration: const Duration(seconds: 2),
+                showTopSnackBar(
+                  Overlay.of(context),
+                  CustomSnackBar.success(
+                    message: 'Added ${_quantity}x ${widget.food.name} to cart',
                   ),
                 );
               },

@@ -133,7 +133,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Center(
                       child: Text(
                         _currentStep == 1
-                            ? 'Procced to Payment'
+                            ? 'Proceed to Payment'
                             : 'Place Order',
                         style: TextStyle(
                           fontSize: 16.sp,
@@ -421,7 +421,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                     8.sH,
                     Text(
-                      'Are you sure you want to logout your account?',
+                      'Enter a promo code to get a discount on your order.',
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: AppColors.textSecondary,

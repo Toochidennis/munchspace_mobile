@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -81,7 +83,9 @@ class _ConfirmAccountScreenState extends State<ConfirmAccountScreen> {
                 keyboardType: TextInputType.number,
                 pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
                 onCompleted: (pin) {
-                  // TODO: Auto-verify or prepare for manual verification
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
                 },
               ),
               Spacer(),
@@ -112,7 +116,12 @@ class _ConfirmAccountScreenState extends State<ConfirmAccountScreen> {
               // Request new code link
               GestureDetector(
                 onTap: () {
-                  // TODO: Implement request new code logic
+                  showTopSnackBar(
+                    Overlay.of(context),
+                    const CustomSnackBar.success(
+                      message: 'New code sent to your email',
+                    ),
+                  );
                 },
                 child: Text(
                   'Request new code',

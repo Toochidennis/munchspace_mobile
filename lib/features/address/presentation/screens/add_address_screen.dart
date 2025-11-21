@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:munchspace/core/utils/responsive.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import 'add_address_manually_screen.dart';
@@ -37,20 +39,25 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     if (status == LocationPermission.denied) {
       developer.log('Permission still denied after request');
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Location permission is required')),
+        showTopSnackBar(
+          Overlay.of(context),
+          const CustomSnackBar.error(
+            message: 'Location permission is required',
+          ),
         );
       }
     } else if (status == LocationPermission.deniedForever) {
       developer.log('Permission denied forever');
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Location permission is permanently denied. Please enable it in settings.',
+        if (mounted) {
+          showTopSnackBar(
+            Overlay.of(context),
+            const CustomSnackBar.error(
+              message:
+                  'Location permission is permanently denied. Please enable it in settings.',
             ),
-          ),
-        );
+          );
+        }
       }
     } else if (status == LocationPermission.whileInUse ||
         status == LocationPermission.always) {

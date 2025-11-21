@@ -5,6 +5,8 @@ import 'package:munchspace/core/theme/app_colors.dart';
 import 'package:munchspace/core/utils/responsive.dart';
 import 'package:munchspace/features/orders/models/order.dart';
 import 'package:munchspace/features/orders/presentation/widgets/order_details_modal.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class InProgressOrderCard extends StatelessWidget {
   final Order order;
@@ -40,8 +42,11 @@ class InProgressOrderCard extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Clipboard.setData(ClipboardData(text: order.id));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Order ID copied')),
+                      showTopSnackBar(
+                        Overlay.of(context),
+                        const CustomSnackBar.success(
+                          message: 'Order ID copied',
+                        ),
                       );
                     },
                     child: Icon(
